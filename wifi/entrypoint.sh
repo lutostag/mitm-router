@@ -40,7 +40,7 @@ if [ "$MAC" != "unchanged" ] ; then
   ifconfig "$AP_IFACE" up
 fi 
 
-ifconfig "$AP_IFACE" 10.0.0.1/24
+ifconfig "$AP_IFACE" 192.168.42.1/24
 
 # configure WPA password if provided
 if [ ! -z "$PASSWORD" ]; then
