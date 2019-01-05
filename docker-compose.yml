@@ -3,6 +3,7 @@ version: '2'
 services:
   wifi:
     privileged: true
+    network_mode: host
     build:
       context: ./wifi
       args:
