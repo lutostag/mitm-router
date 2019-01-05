@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  wifi:
+    privileged: true
+    build:
+      context: ./wifi
+      args:
+        machine: intel-nuc

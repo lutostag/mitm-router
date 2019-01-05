@@ -1,8 +1,8 @@
-FROM debian:jessie
-# replace ^ with below for raspberry pi
-#FROM resin/rpi-raspbian:jessie
+ARG machine=%%RESIN_MACHINE_NAME%%
 
-LABEL maintainer="brannon@brannondorsey.com"
+FROM resin/${machine}-debian:jessie
+
+LABEL maintainer="greg.luto@gmail.com"
 LABEL license="MIT"
 
 RUN apt-get update --fix-missing && apt-get install -y \
