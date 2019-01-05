@@ -3,7 +3,6 @@
 AP_IFACE="${AP_IFACE:-wlan0}"
 INTERNET_IFACE="${INTERNET_IFACE:-eth0}"
 SSID="${SSID:-Public}"
-CAPTURE_FILE="${CAPTURE_FILE:-/root/data/http-traffic.cap}"
 MAC="${MAC:-random}"
 
 # SIGTERM-handler
@@ -84,20 +83,9 @@ if [ ! $? -eq 0 ] ; then
     iptables -A FORWARD -i "$AP_IFACE" -o "$INTERNET_IFACE" -j ACCEPT
 fi
 
-# iptables rule to forward all traffic on router port 80 to 1337
-# where mitmproxy will be listening for it
-iptables -t nat -C PREROUTING -i "$AP_IFACE" -p tcp --dport 80 -j REDIRECT --to-port 1337
-if [ ! $? -eq 0 ] ; then
-  iptables -t nat -A PREROUTING -i "$AP_IFACE" -p tcp --dport 80 -j REDIRECT --to-port 1337
-fi
-
 # setup handlers
 trap term_handler SIGTERM
 trap term_handler SIGKILL
-
-# start mitmproxy in the background, but keep its output in this session
-mitmdump -T --host -p 1337 -w "$CAPTURE_FILE" "$FILTER" & 
-MITMDUMP_PID=$!
 
 # wait forever
 sleep infinity &
