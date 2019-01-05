@@ -6,4 +6,5 @@ services:
     build:
       context: ./wifi
       args:
-        machine: intel-nuc
+        # machine: intel-nuc
+        extra: ""
